@@ -1,4 +1,5 @@
+
 var gulp = require('gulp');
 
-gulp.task('default', ['sass', 'markup', 'webpack', 'watch', 'serve']);
-
+gulp.task('serve', ['sass', 'webpack', 'watch', 'server', 'index', 'partials']);
+gulp.task('default', ['sass', 'webpack', 'watch', 'server', 'index', 'partials']);

@@ -1,0 +1,13 @@
+
+@mixin pseudo-insert($url) {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: $url;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: #fff;
+  position: absolute;
+  border-radius: 50%;
+}

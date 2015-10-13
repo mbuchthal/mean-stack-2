@@ -1,0 +1,46 @@
+
+.contact {
+  @include flexbox(stretch, space-between);
+  background-color: #fff;
+  padding: 3em 5em;
+  @media screen and (max-width: 1050em) {
+    justify-content: center;
+    -webkit-justify-content: center;
+  }
+  @media screen and (max-width: 50em) {
+    text-align: center;
+  }
+  address {
+    padding-top: 1em;
+    line-height: 1.5em;
+    display: inline-block;
+    @media screen and (max-width: 50em) {
+      min-width: 20em;
+    }
+  }
+  p {
+    display: inline-block;
+    width: 12em;
+    padding-left: 3em;
+    line-height: 1.5;
+    @media screen and (max-width: 50em) {
+      padding-left: 0;
+      padding-bottom: 1em;
+    }
+  }
+}
+
+.contact_phone, .contact_email {
+  text-decoration: none;
+  color: inherit;
+  @media screen and (max-width: 50em) {
+    margin-left: 0em;
+    padding-left: 0em;
+  }
+}
+
+.contact_info {
+  justify-content: center;
+  -webkit-justify-content: center;
+  padding-bottom: 2em;
+}

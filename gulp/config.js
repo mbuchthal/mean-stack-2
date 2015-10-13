@@ -1,39 +1,35 @@
-var dest = "./build";
+var dest = './public';
 var src = './src';
 
 module.exports = {
   javascript: {
-    src: src + '/js/**/*.js',
+    src: src + '/app/**/*.js',
     dest: dest + '/js/',
-    entry: src + '/js/app.js',
-    outputFilename: 'app.js'
-  },
-  assets: {
-    src: src + "/assets/**/*",
-    dest: dest + '/assets/'
+    entryPoint: src + '/webpack-entry.js',
+    packedFile: 'packed.js'
   },
   sass: {
-    src: src + "/css/**/*.{sass,scss}",
+    src: src + "/sass/**/*.{sass,scss}",
     dest: dest + '/css/',
     settings: {
-      indentedSyntax: true, // Enable .sass syntax!
+      indentedSyntax: true,
     }
   },
-  html: {
-    src: src + '/**/*.html',
-    dest: dest
-  },
   server: {
-    src: dest,
+    serverFile: '.server.js',
     livereload: true,
-    directoryListing: false,
-    open: false,
-    port: 9000
+  },
+  index: {
+    src: src + '/app/index.html',
+    dest: dest + '/',
+  },
+  partials: {
+    src: [src + '/app/**/*.html', '!' + src + '/app/index.html'],
+    dest: dest + '/partials/'
   },
   production: {
     cssSrc: dest + '/css/*.css',
-    jsSrc: dest + '/js/*.js',
-    cssDest: dest + '/css/',
-    jsDest: dest + '/js/',
+    jsSrc: dest + '/*.js',
+    dest: dest
   }
 };

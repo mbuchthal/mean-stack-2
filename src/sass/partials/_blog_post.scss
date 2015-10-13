@@ -1,0 +1,92 @@
+
+.blog_post {
+  padding: 2em 20em;
+  font-family: $font-sub;
+  margin: auto;
+  @media screen and (max-width: 75em) {
+    max-width: 100%;
+    padding: 2em 0.25em;
+  }
+  @media screen and (max-width: 50em) {
+    padding: 2em 2em;
+  }
+  h2 {
+    padding-top: 1em;
+    font-size: 1.8em;
+    font-weight: 500;
+  }
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    padding-top: 1.5em;
+    font-weight: 300;
+    color: $color-2;
+  }
+  .full-post {
+    padding-bottom: 2em;
+  }
+  &:after {
+    content: '';
+    max-width: 50em;
+    display: block;
+    height: 3em;
+    border-bottom: 1px solid $color-2;
+    padding-top: 2em;
+    @media screen and (max-width: 75em) {
+      max-width: 100%;
+    }
+  }
+}
+
+.blog_info {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  ul {
+    font-weight: 300;
+    color: $color-2;
+    display: inline-block;
+    float: left;
+    font-style: italic;
+    list-style-type: none;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    font-size: 0.8em;
+    :nth-child(2):before {
+      content: '\b7\a0';
+    }
+    :nth-child(3):before {
+      content: '\b7\a0';
+    }
+    li {
+      display: inline;
+    }
+  }
+}
+
+.read_more {
+  @include button-mock(#000, #fff, #fff, $color-3);
+  display: inline-block;
+  float: right;
+  font-size: 0.75em;
+  padding: 1em 3.03em;
+  &:hover {
+    color: #000;
+  }
+}
+.delete_blog {
+  @include button-mock(#000, #fff, #fff, $color-3);
+  font-size: 0.75em;
+  padding: 0.959em 1.182em;
+  &:hover {
+    color: #000;
+  }
+}
+
+.edit-button {
+  @include button-mock($color-1, #fff);
+  font-size: .7em;
+  margin-left: 0;
+}
+.back-button {
+  @extend .edit-button;
+}
