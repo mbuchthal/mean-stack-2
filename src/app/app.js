@@ -1,10 +1,12 @@
 require("angular");
 require("angular-route");
+require('./github-adapter.js');
 
 (function () {
   "use strict";
 
   var app = angular.module("blogapp", ["ngRoute"]);
+  var app = angular.module("blogapp", ["ngRoute", 'github-adapter']);
 
   app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider.when("/blogs", {
