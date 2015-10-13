@@ -1,0 +1,65 @@
+.logo {
+	margin-left: 5em;
+	font-size: 2em;
+	@media screen and (min-width: 50em) {
+		position: relative;
+		top: 2em;
+	}
+}
+
+header {
+	background-color: $color-1;
+	min-height: 10em;
+	font-family: $font-main;
+	font-weight: light;
+	a {
+		text-decoration: none;
+		color: #ffffff;
+		&:hover {
+			color: $color-3;
+		}
+	}
+
+	@media screen and (min-width: 50em) {
+	nav {
+			display: inline;
+			float: right;
+			text-align: right;
+			margin-right: 8em;
+			li {
+				color: #ffffff;
+				display: inline-block;
+				padding-top: 4.5em;
+				padding-right: 1em;
+				:after {
+					content: "\a0\a0\a0\a0\b7";
+				}
+			}
+			li:last-child {
+				:after{
+					content: "\a0";
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 50em) {
+		.logo {
+			margin-left: 3.7em;
+			text-align: center;
+			a{
+				padding-top: 1em;
+			}
+		}
+		nav {
+			padding-top: 1em;
+			display: block;
+			a {
+				display: block;
+				text-align: center;
+				text-decoration: none;
+				padding: 0.5em;
+			}
+		}
+	}
+}

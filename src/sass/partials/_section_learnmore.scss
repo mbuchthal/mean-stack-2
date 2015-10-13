@@ -1,0 +1,40 @@
+
+.learnmore {
+  background-color: $color-3;
+  padding: 5em 5em;
+  color: #fff;
+  text-align: center;
+  font-family: $font-sub;
+  @media screen and (max-width: 50em) {
+    padding: 5em 2em;
+  }
+  h2 {
+    font-size: 2em;
+    padding-bottom: 1em;
+  }
+  p {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 0 20em 3em;
+    font-size: 1em;
+    line-height: 1.5;
+    font-weight: 300;
+    @media screen and (max-width: 75em) {
+      padding: 0 5em 3em;
+    }
+    @media screen and (max-width: 50em) {
+      padding: 0 0em 3em;
+    }
+  }
+}
+
+.learnmore_container {
+  a {
+    @include button-mock(inherit, #fff, #000, #fff);
+      font-size: 0.8em;
+    @media screen and (max-width: 50em) {
+      @include flexbox;
+      margin-bottom: 1em;
+    }
+  }
+}

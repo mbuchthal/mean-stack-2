@@ -1,0 +1,15 @@
+
+<article class="blog_post">
+  <h2>{{vm.blog.title}}</h2>
+  <div class="blog_info">
+    <ul class="blog-data">
+      <li>By: {{vm.blog.author}}</li>
+      <li>Date: {{vm.blog.date | date:'shortDate'}}</li>
+      <li>Comments: {{vm.blog.comments}}</li>
+    </ul>
+  </div>
+  <p class="full-post">{{vm.blog.content}}</p>
+  <a href="#/blogs/{{vm.blog._id}}/edit" class="edit-button">Edit Blog</a>
+  <a href="#/blogs" class="back-button">Back</a>
+</article>
+

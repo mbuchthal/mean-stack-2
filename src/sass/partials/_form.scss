@@ -1,0 +1,66 @@
+
+.blog_form {
+  margin-top: 1em;
+  font-family: $font-sub;
+  border: 3px $color-2 solid;
+  border-radius: 10%;
+  width: 50em;
+  margin: 0 auto 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background-color: $color-3;
+  @media screen and (max-width: 50em) {
+    width: 98%;
+    margin: 0 auto;
+    legend {
+      padding-left: 0em;
+      display: block;
+      margin: 0 auto;
+    }
+    fieldset {
+      label {
+        display: block;
+        text-align: center;
+      }
+      input {
+        display: block;
+        margin: 0 auto;
+      }
+      textarea {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  legend {
+    font-size: 2em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+  }
+  textarea{
+    width: 50%;
+  }
+  input {
+    width: 30%;
+  }
+  fieldset {
+    margin-bottom: 2em;
+    border: none;
+  }
+  label {
+    padding-right: 1em;
+    padding-left: 2em;
+  }
+  button {
+    @include button-mock($color-3, #fff);
+    margin-left: 3em;
+    @media screen and (max-width: 50em) {
+      display: block;
+      margin: 0 auto;
+    }
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+}

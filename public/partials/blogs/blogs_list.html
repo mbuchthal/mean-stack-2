@@ -1,0 +1,20 @@
+<div class="blog-collection">
+  <article class="blog_post" ng-repeat="blog in vm.blogs">
+    <h2>{{blog.title}}</h2>
+    <h2 ng-if="!vm.blogs.length">No blog posts yet!</h2>
+    <p>{{blog.content | limitTo: 350}}</p>
+    <div class="blog_info_container">
+      <div class="blog_info">
+        <ul ng-if="vm.blogs.length" class="blog-data">
+          <li>By: {{blog.author}}</li>
+          <li>Date: {{blog.date | date:'shortDate'}}</li>
+          <li>Comments: {{blog.comments}}</li>
+        </ul>
+        <div class="blog_info_links">
+          <a href="#/blogs/{{blog._id}}" class="read_more">Read More</a>
+          <button ng-click="vm.delete(blog)" class="delete_blog">delete this blog</button>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

@@ -1,0 +1,64 @@
+.links_media {
+  display: flex;
+}
+
+.links_media_item {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 10em;
+  height: 5.5em;
+  background: #fff;
+  border: 1px solid #666;
+  color: #666;
+  text-align: center;
+  font: .5em Arial, sans-serif;
+  padding-top: 4.5em;
+  text-transform: uppercase;
+  font-weight: bolder;
+  @include flexbox;
+  &:hover {
+    background-color: $color-3;
+  }
+}
+
+.svg_twitter {
+  padding-right: 2em;
+  position: relative;
+  :hover {
+    color: #fff;
+  }
+  &:before {
+    @include pseudo-insert(url("../images/twitter3.svg"));
+  }
+  &:hover:before {
+    background-color: $color-3;
+  }
+}
+
+.svg_facebook {
+  padding-right: 2em;
+  position: relative;
+  :hover {
+    color: #fff;
+  }
+  &:before {
+    @include pseudo-insert(url("../images/facebook3.svg"));
+  }
+   &:hover:before {
+    background-color: $color-3;
+  }
+}
+
+.svg_linkedin {
+  position: relative;
+  :hover {
+    color: #fff;
+  }
+  &:before {
+    @include pseudo-insert(url("../images/linkedin-with-circle.svg"));
+  }
+  &:hover:before {
+    background-color: $color-3;
+  }
+}

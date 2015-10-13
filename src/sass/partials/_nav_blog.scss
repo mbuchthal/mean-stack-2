@@ -1,0 +1,49 @@
+
+.nav_blog {
+  border: 1px solid $color-2;
+  @include flexbox(center, space-between);
+  padding: 1em 5em;
+  margin-bottom: 2em;
+}
+
+.list_blog_tree {
+  display: flex;
+  text-transform: uppercase;
+  padding-left: 5em;
+  font-family: $font-sub;
+  a {
+    text-decoration: none;
+    color: inherit;
+    font-family: $font-sub;
+    font-size: 0.6em;
+    font-weight: bold;
+  }
+  li {
+    padding: 0 0.5em;
+  }
+  @media screen and (max-width: 50em) {
+    padding-left: 2.5em;
+    padding-bottom: 1em;
+  }
+}
+.list_blog_socialmedia {
+  display: inherit;
+  color: $color-2;
+  font-family: $font-sub;
+  font-size: 0.8em;
+  align-items: center;
+  a {
+    text-decoration: none;
+    color: $color-2;
+    font-size: 1em;
+  }
+  li {
+    padding: 0 0.5em;
+    font-size: 1.5em;
+    :hover {
+      color: $color-3;
+      background-color: $color-2;
+      border-radius: 50%;
+    }
+  }
+}
