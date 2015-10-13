@@ -1,30 +1,26 @@
+
+
 require("../app.js");
 
-(function () {
-  "use strict";
+angular.module("blogapp").controller("BlogCtrl", ["BlogsService", "$routeParams", function (BlogsService, $routeParams) {
+  var vm = this;
 
-  angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
-    var vm = this;
+  initialize();
 
-    vm.blogs = [];
-    vm.delete = deleteBlog;
+  function initialize() {
+    BlogsService
+      .get($routeParams.blog_id)
+      .then(function (resp) {
+        console.log(resp);
 
-    initialize();
+        vm.blog = {};
+        vm.blog.content = '';
+        for(file in resp.files) {
+          vm.blog.content += resp.files[file].content;
+        }
 
-    function initialize () {
-      getBlogs();
-    }
-
-    function getBlogs () {
-      BlogsService.get().then(function (resp) {
-        vm.blogs = resp.data;
+        vm.blog.date = resp.updated_at;
+        vm.blog.author = resp.owner.login;
       });
-    }
-
-    function deleteBlog (blog) {
-      BlogsService.delete(blog).then(function () {
-        getBlogs();
-      });
-    }
-  }]);
-}());
+  }
+}]);
