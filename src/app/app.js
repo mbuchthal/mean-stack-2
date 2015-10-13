@@ -2,9 +2,32 @@ require("angular");
 require("angular-route");
 
 (function () {
-  "use strict";
+  var app = angular.module("gisty", []);
 
-  var app = angular.module("blogapp", ["ngRoute"]);
+  app.controller("GistsCtrl", ["$scope", "$http", function($scope, $http){
+    $http.get("https://api.github.com/users/bentongreen/gists", {
+      headers: {
+        "Authorization": "token dc876ebb349102594a6e6e25193a3f7d5bca1a8a",
+      }
+    }).then(successHandler, errorHandler);
+
+    function successHandler(response){
+      var data = response.data;
+      data = angular.isArray(data) ? data: [data];
+
+      $scope.gists = response.data;
+      console.info("repsonse", response);
+    }
+
+    function errorHandler(response){
+      console.info("repsonse", response);
+      $scope.error = response.data;
+    }
+
+    $scope.message = "hello gisty";
+  }]);
+
+ /* var app = angular.module("blogapp", ["ngRoute"]);
 
   app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider.when("/blogs", {
@@ -26,5 +49,5 @@ require("angular-route");
     .otherwise({
       redirectTo: "/blogs"
     });
-  }]);
+  }]); */
 }());

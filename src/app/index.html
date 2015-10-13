@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="blogapp">
+<html lang="en" ng-app="gisty">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,6 +11,7 @@
   </head>
   <body>
     <header>
+      <script src="app/app.js"></script>
       <a class="logo" href="">intelly</a>
       <nav>
         <ul>
@@ -24,6 +25,21 @@
         </ul>
       </nav>
     </header>
+    <main ng-controller="GistsCtrl">
+      <p ng-if="error">{{error}}</p>
+      <div ng-if="!error">
+        There is no error!
+        <input type="text" ng-model="search">
+        <p> searching for: {{search}}</p>
+      <ul>
+        <li ng-repeat="gists in gists|filter:search">
+          <a href="{{gists.html_url}}">{{gistss.id}}</a>
+          <p><img src="{{gists.owner.avatar_url}}" height="50" width="50">{{gists.owner.login}}</img></p>
+          <pre>{{gists|json}}</pre>
+        </li>
+      </ul>
+      </div>
+    </main>
     <section class="bloghead">
       <h2>Blog</h2>
       <p>The secular cooling that must someday overtake our planet has already gone far indeed with our neighbour. Its physical condition is still largely a mystery, but we know now that</p>
