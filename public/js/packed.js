@@ -56,62 +56,11 @@
 	__webpack_require__(2);
 	__webpack_require__(4);
 
+
 	(function () {
-	  var app = angular.module("gisty", []);
+	  "use strict";
 
-	  angular.module("gisty").filter("offset", function($filter){
-	    return function(input, start){
-	      if(input){
-	        start = parseInt(start, 10);
-	        return input.slice(start);
-	      }
-	    };
-	  });
-
-	  angular.module("gisty").filter("pager", function($filter){
-	    return function(results, pagerOb){
-	      var filteredResults;
-
-	      filteredResults = $filter("offset")(results, pagerObj.getOffset());
-	      filteredResults = $filter("limitTo")(filteredResults, pager.perPage);
-	      return filteredResults;
-	    };
-	  });
-
-	  app.controller("GistsCtrl", ["$scope", "$http", function($scope, $http){
-	    
-	    $scope.pagination = {
-	      currentPage: 1,
-	      perPage: 5,
-	      getOffset: function(){
-	        return $scope.pagination.currentPage * $scope.pagination.perPage;
-	      },
-	      prevPage: function(){}
-	    };
-
-	    $http.get("https://api.github.com/users/bentongreen/gists", {
-	      headers: {
-	        "Authorization": "token eca323fe911ec34a718abef94699b66ea843e729",
-	      }
-	    }).then(successHandler, errorHandler);
-
-	    function successHandler(response){
-	      var data = response.data;
-	      data = angular.isArray(data) ? data: [data];
-
-	      $scope.gists = response.data;
-	      console.info("repsonse", response);
-	    }
-
-	    function errorHandler(response){
-	      console.info("repsonse", response);
-	      $scope.error = response.data;
-	    }
-
-	    $scope.message = "hello gisty";
-	  }]);
-
-	 /* var app = angular.module("blogapp", ["ngRoute"]);
+	  var app = angular.module("blogapp", ["gisty.config", "ngRoute"]);
 
 	  app.config(["$routeProvider", function ($routeProvider) {
 	    $routeProvider.when("/blogs", {
@@ -133,7 +82,7 @@
 	    .otherwise({
 	      redirectTo: "/blogs"
 	    });
-	  }]); */
+	  }]);
 	}());
 
 
@@ -16726,7 +16675,7 @@
 	 *
 	 * - your app is hosted at url `http://myapp.example.com/`
 	 * - but some of your templates are hosted on other domains you control such as
-	 *   `http://srv01.assets.example.com/`,  `http://srv02.assets.example.com/`, etc.
+	 *   `http://srv01.assets.example.com/`,  `http://srv02.assets.example.com/`, etc.
 	 * - and you have an open redirect at `http://myapp.example.com/clickThru?...`.
 	 *
 	 * Here is what a secure configuration for this scenario might look like:
@@ -30072,6 +30021,7 @@
 	__webpack_require__(11);
 
 
+
 /***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
@@ -30088,7 +30038,20 @@
 	    BlogsService
 	      .get($routeParams.blog_id)
 	      .then(function (resp) {
-	        vm.blog = resp.data;
+	        // vm.blog = resp.data;
+
+	        console.log(resp);
+
+	        vm.blog = {};
+	        vm.blog.content = '';
+
+	        for (files in resp.files) {
+	          vm.blog.content += resp.files[file].content;
+	        }
+
+	        vm.blog.date = resp.updated_at;
+	        vm.blog.author = resp.owner.login;
+
 	      });
 	  }
 	}]);
@@ -30161,30 +30124,52 @@
 	(function () {
 	  "use strict";
 
-	  angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
-	    var vm = this;
+	  // angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
 
-	    vm.blogs = [];
-	    vm.delete = deleteBlog;
-
-	    initialize();
-
-	    function initialize () {
-	      getBlogs();
+	angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log, token) {
+	  $http.get("https://api.github.com/users/toalina/gists", {
+	    headers: {
+	      "Authorization": "token " + token,
 	    }
+	  }).then(successHandler, errorHandler);
 
-	    function getBlogs () {
-	      BlogsService.get().then(function (resp) {
-	        vm.blogs = resp.data;
-	      });
-	    }
+	function successHandler (response) {
+	  var data = response.data;
+	  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
 
-	    function deleteBlog (blog) {
-	      BlogsService.delete(blog).then(function () {
-	        getBlogs();
-	      });
-	    }
-	  }]);
+	  $scope.gists = response.data;
+	  $log.info("response", response);
+	};
+
+	function errorHandler(response) {
+	  $log.error("response", response);
+	};
+
+	});
+
+	//     var vm = this;
+
+	//     vm.blogs = [];
+	//     vm.delete = deleteBlog;
+
+	//     initialize();
+
+	//     function initialize () {
+	//       getBlogs();
+	//     }
+
+	//     function getBlogs () {
+	//       BlogsService.get().then(function (resp) {
+	//         vm.blogs = resp.data;
+	//       });
+	//     }
+
+	//     function deleteBlog (blog) {
+	//       BlogsService.delete(blog).then(function () {
+	//         getBlogs();
+	//       });
+	//     }
+	//   }]);
 	}());
 
 
@@ -30194,18 +30179,20 @@
 
 	__webpack_require__(1);
 
+
 	(function () {
 	  "use strict";
 
-	  angular.module("blogapp").service("BlogsService", ["$http", function ($http) {
+	  angular.module("blogapp").service("BlogsService", ["$http", "$githubGist", function ($http, $githubGist) {
 	    var urlRoot = "/api/blogs";
 
 	    var Blog = {
 	      get: function (id) {
 	        if (angular.isDefined(id)) {
-	          return $http.get(urlRoot + "/" + id);
+	          return $githubGist(id).read();
 	        } else {
-	          return $http.get(urlRoot);
+	          // return $http.get(urlRoot);
+	          console.warn();
 	        }
 	      },
 	      update: function (model) {
