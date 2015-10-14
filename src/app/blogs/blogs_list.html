@@ -1,4 +1,6 @@
 <div class="blog-collection">
+  <input type="text" ng-model="search">
+  <p>Search: {{search}}</p>
   <article class="blog_post" ng-repeat="gist in gists|pager:pagination">
     <h2>{{gist.description}} / {{gist.owner.url}}</h2>
     <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
