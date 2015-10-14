@@ -30131,7 +30131,7 @@
 
 	  $scope.pagination = {
 	    currentPage: 0,
-	    perPage: 3,
+	    perPage: 2,
 	    getOffset: function () {
 	      return $scope.pagination.currentPage * $scope.pagination.perPage;
 	    },
