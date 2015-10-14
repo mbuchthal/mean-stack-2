@@ -8,7 +8,7 @@ require("../app.js");
 angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log, token) {
   $http.get("https://api.github.com/users/toalina/gists", {
     headers: {
-      "Authorization": "token "
+      "Authorization": "token " + token,
     }
   }).then(successHandler, errorHandler);
 
