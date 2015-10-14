@@ -1,4 +1,5 @@
 require("../app.js");
+require("../filters/pager.filter.js");
 
 (function () {
   "use strict";
@@ -6,6 +7,22 @@ require("../app.js");
   // angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
 
 angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log, token) {
+
+  $scope.pagination = {
+    currentPage: 0,
+    perPage: 3,
+    getOffset: function () {
+      return $scope.pagination.currentPage * $scope.pagination.perPage;
+    },
+    prevPage: function () {
+      $scope.pagination.currentPage--;
+    },
+    nextPage: function () {
+      $scope.pagination.currentPage++;
+    }
+  };
+
+
   $http.get("https://api.github.com/users/toalina/gists", {
     headers: {
       "Authorization": "token " + token,
@@ -26,27 +43,5 @@ function errorHandler(response) {
 
 });
 
-//     var vm = this;
 
-//     vm.blogs = [];
-//     vm.delete = deleteBlog;
-
-//     initialize();
-
-//     function initialize () {
-//       getBlogs();
-//     }
-
-//     function getBlogs () {
-//       BlogsService.get().then(function (resp) {
-//         vm.blogs = resp.data;
-//       });
-//     }
-
-//     function deleteBlog (blog) {
-//       BlogsService.delete(blog).then(function () {
-//         getBlogs();
-//       });
-//     }
-//   }]);
 }());

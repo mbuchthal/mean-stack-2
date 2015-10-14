@@ -30018,7 +30018,7 @@
 	__webpack_require__(8);
 	__webpack_require__(9);
 	__webpack_require__(10);
-	__webpack_require__(11);
+	__webpack_require__(13);
 
 
 
@@ -30120,6 +30120,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
+	__webpack_require__(11);
 
 	(function () {
 	  "use strict";
@@ -30127,6 +30128,22 @@
 	  // angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
 
 	angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log, token) {
+
+	  $scope.pagination = {
+	    currentPage: 0,
+	    perPage: 3,
+	    getOffset: function () {
+	      return $scope.pagination.currentPage * $scope.pagination.perPage;
+	    },
+	    prevPage: function () {
+	      $scope.pagination.currentPage--;
+	    },
+	    nextPage: function () {
+	      $scope.pagination.currentPage++;
+	    }
+	  };
+
+
 	  $http.get("https://api.github.com/users/toalina/gists", {
 	    headers: {
 	      "Authorization": "token " + token,
@@ -30147,34 +30164,48 @@
 
 	});
 
-	//     var vm = this;
 
-	//     vm.blogs = [];
-	//     vm.delete = deleteBlog;
-
-	//     initialize();
-
-	//     function initialize () {
-	//       getBlogs();
-	//     }
-
-	//     function getBlogs () {
-	//       BlogsService.get().then(function (resp) {
-	//         vm.blogs = resp.data;
-	//       });
-	//     }
-
-	//     function deleteBlog (blog) {
-	//       BlogsService.delete(blog).then(function () {
-	//         getBlogs();
-	//       });
-	//     }
-	//   }]);
 	}());
 
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	__webpack_require__(12);
+
+	angular.module("blogapp").filter("pager", function ($filter) {
+	  return function(results, pagerObj) {
+	    var filteredResults;
+
+	    filteredResults = $filter("offset")(results, pagerObj.getOffset());
+	    filteredResults = $filter("limitTo")(filteredResults, pagerObj.perPage);
+	    console.log(filteredResults);
+	    return filteredResults;
+
+	  };
+	});
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+
+	angular.module("blogapp").filter("offset", function ($filter) {
+	  return function (input, start) {
+	    if (input) {
+	      start = parseInt(start, 10);
+	      return input.slice(start);
+	    }
+	  };
+	});
+
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
