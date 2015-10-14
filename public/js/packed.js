@@ -59,10 +59,39 @@
 	(function () {
 	  var app = angular.module("gisty", []);
 
+	  angular.module("gisty").filter("offset", function($filter){
+	    return function(input, start){
+	      if(input){
+	        start = parseInt(start, 10);
+	        return input.slice(start);
+	      }
+	    };
+	  });
+
+	  angular.module("gisty").filter("pager", function($filter){
+	    return function(results, pagerOb){
+	      var filteredResults;
+
+	      filteredResults = $filter("offset")(results, pagerObj.getOffset());
+	      filteredResults = $filter("limitTo")(filteredResults, pager.perPage);
+	      return filteredResults;
+	    };
+	  });
+
 	  app.controller("GistsCtrl", ["$scope", "$http", function($scope, $http){
+	    
+	    $scope.pagination = {
+	      currentPage: 1,
+	      perPage: 5,
+	      getOffset: function(){
+	        return $scope.pagination.currentPage * $scope.pagination.perPage;
+	      },
+	      prevPage: function(){}
+	    };
+
 	    $http.get("https://api.github.com/users/bentongreen/gists", {
 	      headers: {
-	        "Authorization": "token dc876ebb349102594a6e6e25193a3f7d5bca1a8a",
+	        "Authorization": "token eca323fe911ec34a718abef94699b66ea843e729",
 	      }
 	    }).then(successHandler, errorHandler);
 

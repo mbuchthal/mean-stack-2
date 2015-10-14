@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en" ng-app="gisty">
   <head>
     <meta charset="utf-8">
@@ -26,6 +26,7 @@
       </nav>
     </header>
     <main ng-controller="GistsCtrl">
+      <p ng-output=
       <p ng-if="error">{{error}}</p>
       <div ng-if="!error">
         There is no error!
@@ -33,8 +34,13 @@
         <p> searching for: {{search}}</p>
       <ul>
         <li ng-repeat="gists in gists|filter:search">
-          <a href="{{gists.html_url}}">{{gistss.id}}</a>
+          <a href="{{gists.html_url}}">{{gists.id}}</a>
           <p><img src="{{gists.owner.avatar_url}}" height="50" width="50">{{gists.owner.login}}</img></p>
+          <br>
+          <br>
+          <p>{{gists.files.raw_url}}</p>
+          <br>
+          <br>
           <pre>{{gists|json}}</pre>
         </li>
       </ul>
