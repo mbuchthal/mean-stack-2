@@ -1,12 +1,12 @@
 <div class="blog-collection">
   <article class="blog_post" ng-repeat="gist in gists">
-    <h2>{{gist.id}}</h2>
-    <img src="{{gist.avatar_url}}" alt="">
-    <p>{{gist.content | limitTo: 350}}</p>
+    <h2>{{gist.description}} / {{gist.owner.url}}</h2>
+    <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
+    <p ng-repeat="file in gist.files">{{file.filename | limitTo: 350}}</p>
     <div class="blog_info_container">
       <div class="blog_info">
-        <ul ng-if="vm.blogs.length" class="blog-data">
-          <li>By: {{gist.author}}</li>
+        <ul ng-if="gists.length" class="blog-data">
+          <li>By: {{gist.owner.login}}</li>
           <li>Date: {{gist.created_at | date:'shortDate'}}</li>
           <li>Comments: {{gist.comments}}</li>
         </ul>
