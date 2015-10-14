@@ -56,10 +56,11 @@
 	__webpack_require__(2);
 	__webpack_require__(4);
 
+
 	(function () {
 	  "use strict";
 
-	  var app = angular.module("blogapp", ["ngRoute"]);
+	  var app = angular.module("blogapp", ["gisty.config", "ngRoute"]);
 
 	  app.config(["$routeProvider", function ($routeProvider) {
 	    $routeProvider.when("/blogs", {
@@ -30020,6 +30021,7 @@
 	__webpack_require__(11);
 
 
+
 /***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
@@ -30036,7 +30038,20 @@
 	    BlogsService
 	      .get($routeParams.blog_id)
 	      .then(function (resp) {
-	        vm.blog = resp.data;
+	        // vm.blog = resp.data;
+
+	        console.log(resp);
+
+	        vm.blog = {};
+	        vm.blog.content = '';
+
+	        for (files in resp.files) {
+	          vm.blog.content += resp.files[file].content;
+	        }
+
+	        vm.blog.date = resp.updated_at;
+	        vm.blog.author = resp.owner.login;
+
 	      });
 	  }
 	}]);
@@ -30109,30 +30124,52 @@
 	(function () {
 	  "use strict";
 
-	  angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
-	    var vm = this;
+	  // angular.module("blogapp").controller("BlogsCtrl", ["BlogsService", function (BlogsService) {
 
-	    vm.blogs = [];
-	    vm.delete = deleteBlog;
-
-	    initialize();
-
-	    function initialize () {
-	      getBlogs();
+	angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log, token) {
+	  $http.get("https://api.github.com/users/toalina/gists", {
+	    headers: {
+	      "Authorization": "token "
 	    }
+	  }).then(successHandler, errorHandler);
 
-	    function getBlogs () {
-	      BlogsService.get().then(function (resp) {
-	        vm.blogs = resp.data;
-	      });
-	    }
+	function successHandler (response) {
+	  var data = response.data;
+	  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
 
-	    function deleteBlog (blog) {
-	      BlogsService.delete(blog).then(function () {
-	        getBlogs();
-	      });
-	    }
-	  }]);
+	  $scope.gists = response.data;
+	  $log.info("response", response);
+	};
+
+	function errorHandler(response) {
+	  $log.error("response", response);
+	};
+
+	});
+
+	//     var vm = this;
+
+	//     vm.blogs = [];
+	//     vm.delete = deleteBlog;
+
+	//     initialize();
+
+	//     function initialize () {
+	//       getBlogs();
+	//     }
+
+	//     function getBlogs () {
+	//       BlogsService.get().then(function (resp) {
+	//         vm.blogs = resp.data;
+	//       });
+	//     }
+
+	//     function deleteBlog (blog) {
+	//       BlogsService.delete(blog).then(function () {
+	//         getBlogs();
+	//       });
+	//     }
+	//   }]);
 	}());
 
 
@@ -30142,18 +30179,20 @@
 
 	__webpack_require__(1);
 
+
 	(function () {
 	  "use strict";
 
-	  angular.module("blogapp").service("BlogsService", ["$http", function ($http) {
+	  angular.module("blogapp").service("BlogsService", ["$http", "$githubGist", function ($http, $githubGist) {
 	    var urlRoot = "/api/blogs";
 
 	    var Blog = {
 	      get: function (id) {
 	        if (angular.isDefined(id)) {
-	          return $http.get(urlRoot + "/" + id);
+	          return $githubGist(id).read();
 	        } else {
-	          return $http.get(urlRoot);
+	          // return $http.get(urlRoot);
+	          console.warn();
 	        }
 	      },
 	      update: function (model) {

@@ -1,10 +1,11 @@
 require("angular");
 require("angular-route");
 
+
 (function () {
   "use strict";
 
-  var app = angular.module("blogapp", ["ngRoute"]);
+  var app = angular.module("blogapp", ["gisty.config", "ngRoute"]);
 
   app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider.when("/blogs", {

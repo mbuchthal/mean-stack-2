@@ -1,5 +1,5 @@
 {
-  "name": "mean-stack-1",
+  "name": "mean-stack-2",
   "version": "1.0.0",
   "description": "Last week we focussed on JavaScript basics. This week we're going to build up a function web application. You'll be expected to build on knowledge you've already learned (semantic HTML, Sass instead of CSS, in addition to all of the Angular work we'll be doing) and produce a \"production-ready\" blog for your assignment this week.",
   "main": "index.js",
@@ -8,16 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mbuchthal/mean-stack-1.git"
+    "url": "git+https://github.com/mbuchthal/mean-stack-2.git"
   },
   "author": "Mark Buchthal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mbuchthal/mean-stack-1/issues"
+    "url": "https://github.com/mbuchthal/mean-stack-2/issues"
   },
   "homepage": "https://github.com/mbuchthal/mean-stack-1#readme",
   "dependencies": {
     "angular": "^1.4.7",
+    "angular-cookies": "^1.4.7",
     "angular-route": "^1.4.7",
     "body-parser": "^1.14.1",
     "connect-livereload": "^0.5.3",
@@ -27,6 +28,7 @@
     "gulp-express": "^0.3.5",
     "gulp-jshint": "^1.11.2",
     "gulp-livereload": "^3.8.1",
+    "gulp-ng-config": "^1.2.1",
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
