@@ -4,7 +4,7 @@
   <h4>{{gists.owner.url}}</h4>
   <img src="{{gists.owner.avatar_url}}" alt="picture of owner" height="75" width="75">
   <p>{{gists.file.filename}}</p>
-  <p ng-repeat="file in gists.files"><pre>{{gists.files|json:2}}<pre></p>
+  <p ng-repeat="file in gists.files"><pre>{{gists.files|json}}<pre></p>
   <div class="blog_info">
     <ul class="blog-data">
       <li>By: {{gists.owner.login}}</li>
@@ -12,8 +12,6 @@
       <li>Comments: {{gists.comments}}</li>
     </ul>
   </div>
-  <!-- <p class="full-post">{{vm.blog.content}}</p> -->
-<!--   <a href="#/blogs/{{vm.blog._id}}/edit" class="edit-button">Edit Blog</a> -->
   <a href="#/blogs" class="back-button">Back</a>
 </article>
 
