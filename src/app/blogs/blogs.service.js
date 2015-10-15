@@ -21,7 +21,11 @@ require("../app.js");
         }
       },
       update: function (model) {
-        return $http.put(urlRoot + "/" + model._id, model);
+        return $http.patch(urlRoot + "/gists" + model.id, model, {
+          headers: {
+            "Authorization": "token " + token,
+          }
+        });
       },
       create: function (model) {
         return $http.post(urlRoot + "/gists", model, {
