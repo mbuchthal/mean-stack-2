@@ -4,13 +4,17 @@ require("../app.js");
 (function () {
   "use strict";
 
-  angular.module("blogapp").service("BlogsService", ["$http", "$githubGist", function ($http, $githubGist) {
+  angular.module("blogapp").service("BlogsService", function ($http, token) {
     var urlRoot = "/api/blogs";
 
     var Blog = {
       get: function (id) {
         if (angular.isDefined(id)) {
-          return $githubGist(id).read();
+          return $http.get("https://api.github.com/gists/" + id, {
+              headers: {
+                "Authorization": "token " + token,
+              }
+          });
         } else {
           // return $http.get(urlRoot);
           console.warn();
@@ -27,5 +31,13 @@ require("../app.js");
       }
     };
     return Blog;
-  }]);
+  });
 }());
+
+
+
+  // $http.get("https://api.github.com/users/toalina/gists", {
+  //   headers: {
+  //     "Authorization": "token " + token,
+  //   }
+  // }).then(successHandler, errorHandler);
