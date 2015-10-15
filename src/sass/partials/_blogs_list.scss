@@ -42,3 +42,17 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;
 }
+
+.search-bar{
+  font-family: $font-sub;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.search-label{
+  margin: 0 auto;
+  font-weight: bold;
+  text-align: center;
+  font-family: $font-sub;
+}
