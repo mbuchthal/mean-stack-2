@@ -20,7 +20,7 @@ require("angular-route");
       templateUrl: "partials/blogs/blog_form.html",
       controller: "BlogFormCtrl as vm",
     })
-    .when("/blogs/:blog_id", {
+    .when("/blogs/:gist_id", {
       templateUrl: "partials/blogs/blog_details.html",
       controller: "BlogCtrl as vm",
     })

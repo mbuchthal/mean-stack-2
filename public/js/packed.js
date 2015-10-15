@@ -75,7 +75,7 @@
 	      templateUrl: "partials/blogs/blog_form.html",
 	      controller: "BlogFormCtrl as vm",
 	    })
-	    .when("/blogs/:blog_id", {
+	    .when("/blogs/:gist_id", {
 	      templateUrl: "partials/blogs/blog_details.html",
 	      controller: "BlogCtrl as vm",
 	    })
@@ -30029,32 +30029,58 @@
 	
 	__webpack_require__(1);
 
-	angular.module("blogapp").controller("BlogCtrl", ["BlogsService", "$routeParams", function (BlogsService, $routeParams) {
-	  var vm = this;
+	// angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams) {
+	//   var vm = this;
 
-	  initialize();
+	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log) {
 
-	  function initialize() {
-	    BlogsService
-	      .get($routeParams.blog_id)
-	      .then(function (resp) {
-	        // vm.blog = resp.data;
+	initialize();
+	function initialize() {
 
-	        console.log(resp);
+	  BlogsService
+	    .get($routeParams.gist_id)
+	    .then(successHandler, errorHandler);
+	};
 
-	        vm.blog = {};
-	        vm.blog.content = '';
+	function successHandler (response) {
+	  var data = response.data;
+	  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
+	  console.log(data);
+	  $scope.gists = response.data;
+	  $log.info("response", response);
+	};
 
-	        for (files in resp.files) {
-	          vm.blog.content += resp.files[file].content;
-	        }
+	function errorHandler(response) {
+	  $log.error("response", response);
+	};
 
-	        vm.blog.date = resp.updated_at;
-	        vm.blog.author = resp.owner.login;
+	});
 
-	      });
-	  }
-	}]);
+	  // initialize();
+
+	  // function initialize() {
+	  //   BlogsService
+	  //     .get($routeParams.blog_id)
+	  //     .then(function (resp) {
+	  //       // vm.blog = resp.data;
+
+	  //       console.log(resp);
+
+	  //       vm.blog = {};
+	  //       vm.blog.content = '';
+
+	  //       for (files in resp.files) {
+	  //         vm.blog.content += resp.files[file].content;
+	  //       }
+
+	  //       vm.blog.date = resp.updated_at;
+	  //       vm.blog.author = resp.owner.login;
+
+	  //     });
+	  // }
+
+
+
 
 
 /***/ },
@@ -30143,7 +30169,6 @@
 	    }
 	  };
 
-
 	  $http.get("https://api.github.com/users/toalina/gists", {
 	    headers: {
 	      "Authorization": "token " + token,
@@ -30214,13 +30239,17 @@
 	(function () {
 	  "use strict";
 
-	  angular.module("blogapp").service("BlogsService", ["$http", "$githubGist", function ($http, $githubGist) {
+	  angular.module("blogapp").service("BlogsService", function ($http, token) {
 	    var urlRoot = "/api/blogs";
 
 	    var Blog = {
 	      get: function (id) {
 	        if (angular.isDefined(id)) {
-	          return $githubGist(id).read();
+	          return $http.get("https://api.github.com/gists/" + id, {
+	              headers: {
+	                "Authorization": "token " + token,
+	              }
+	          });
 	        } else {
 	          // return $http.get(urlRoot);
 	          console.warn();
@@ -30237,8 +30266,16 @@
 	      }
 	    };
 	    return Blog;
-	  }]);
+	  });
 	}());
+
+
+
+	  // $http.get("https://api.github.com/users/toalina/gists", {
+	  //   headers: {
+	  //     "Authorization": "token " + token,
+	  //   }
+	  // }).then(successHandler, errorHandler);
 
 
 /***/ }

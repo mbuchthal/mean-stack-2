@@ -22,7 +22,6 @@ angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log,
     }
   };
 
-
   $http.get("https://api.github.com/users/toalina/gists", {
     headers: {
       "Authorization": "token " + token,

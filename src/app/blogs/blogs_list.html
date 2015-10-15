@@ -1,9 +1,9 @@
 <div class="blog-collection">
   <article class="blog_post" ng-repeat="gist in gists|pager:pagination">
     <h2>{{gist.description}}</h2>
-    <h4>{{gist.owner.url}}</h4>
-    <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
-    <p ng-repeat="file in gist.files"><a href="{{file.raw_url}}">{{file.filename | limitTo: 50}}<a></p>
+    <h4><a href="{{gist.owner.url}}">{{gist.owner.url}}</a></h4>
+    <img src="{{gist.owner.avatar_url}}" alt="pictue of gist author " height="75" width="75">
+    <p ng-repeat="file in gist.files"><a href="#/blogs/{{gist.id}}">{{file.filename | limitTo: 30}}<a></p>
     <div class="blog_info_container">
       <div class="blog_info">
         <ul ng-if="gists.length" class="blog-data">
