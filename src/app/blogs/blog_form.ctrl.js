@@ -32,13 +32,12 @@ require("../app.js");
       method = $routeParams.blog_id ? "update" : "create";
 
       BlogsService[method](newGist).then(function (resp) {
-
         $http.post("https://api.github.com/gists", newGist, {
-
           headers: {
             Authorization: "token " + token
           }
         }).then(successHandler, errorHandler);
+        $location.url('/#/blogs/' + data.id);
       });
 
       function successHandler (response) {

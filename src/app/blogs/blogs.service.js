@@ -31,7 +31,11 @@ require("../app.js");
         });
       },
       delete: function (model) {
-        return $http.delete(urlRoot + "/" + model._id);
+        return $http.delete(urlRoot + "/gists/" + model._id,  {
+          headers: {
+            Authorization: "token " + token,
+          }
+        });
       }
     };
     return Blog;

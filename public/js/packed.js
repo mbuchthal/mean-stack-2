@@ -30029,58 +30029,29 @@
 	
 	__webpack_require__(1);
 
-	// angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams) {
-	//   var vm = this;
-
 	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log) {
 
-	initialize();
+	  initialize();
 
-	function initialize() {
-	  BlogsService
-	    .get($routeParams.gist_id)
-	    .then(successHandler, errorHandler);
-	};
+	  function initialize() {
+	    BlogsService
+	      .get($routeParams.gist_id)
+	      .then(successHandler, errorHandler);
+	  };
 
-	function successHandler (response) {
-	  var data = response.data;
-	  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
-	  console.log(data);
-	  $scope.gists = response.data;
-	  $log.info("response", response);
-	};
+	  function successHandler (response) {
+	    var data = response.data;
+	    data = angular.isArray(data) ? data : [data];  //isArray is an angular method
+	    console.log(data);
+	    $scope.gists = response.data;
+	    $log.info("response", response);
+	  };
 
-	function errorHandler(response) {
-	  $log.error("response", response);
-	};
+	  function errorHandler(response) {
+	    $log.error("response", response);
+	  };
 
 	});
-
-	  // initialize();
-
-	  // function initialize() {
-	  //   BlogsService
-	  //     .get($routeParams.blog_id)
-	  //     .then(function (resp) {
-	  //       // vm.blog = resp.data;
-
-	  //       console.log(resp);
-
-	  //       vm.blog = {};
-	  //       vm.blog.content = '';
-
-	  //       for (files in resp.files) {
-	  //         vm.blog.content += resp.files[file].content;
-	  //       }
-
-	  //       vm.blog.date = resp.updated_at;
-	  //       vm.blog.author = resp.owner.login;
-
-	  //     });
-	  // }
-
-
-
 
 
 /***/ },
@@ -30142,13 +30113,12 @@
 	      method = $routeParams.blog_id ? "update" : "create";
 
 	      BlogsService[method](newGist).then(function (resp) {
-
 	        $http.post("https://api.github.com/gists", newGist, {
-
 	          headers: {
 	            Authorization: "token " + token
 	          }
 	        }).then(successHandler, errorHandler);
+	        $location.url('/#/blogs/' + data.id);
 	      });
 
 	      function successHandler (response) {
@@ -30195,23 +30165,26 @@
 	    }
 	  };
 
-	  $http.get("https://api.github.com/users/toalina/gists", {
+	  $http.get("https://api.github.com/users/mbuchthal/gists", {
 	    headers: {
 	      "Authorization": "token " + token,
 	    }
 	  }).then(successHandler, errorHandler);
 
-	function successHandler (response) {
-	  var data = response.data;
-	  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
+	  function successHandler (response) {
+	    var data = response.data;
+	    data = angular.isArray(data) ? data : [data];  //isArray is an angular method
 
-	  $scope.gists = response.data;
-	  $log.info("response", response);
-	};
+	    $scope.gists = response.data;
+	    $log.info("response", response);
+	  };
 
-	function errorHandler(response) {
-	  $log.error("response", response);
-	};
+	  function errorHandler(response) {
+	    $log.error("response", response);
+	  };
+
+	  // function deleteG
+
 
 	});
 
@@ -30292,7 +30265,11 @@
 	        });
 	      },
 	      delete: function (model) {
-	        return $http.delete(urlRoot + "/" + model._id);
+	        return $http.delete(urlRoot + "/gists/" + model._id,  {
+	          headers: {
+	            Authorization: "token " + token,
+	          }
+	        });
 	      }
 	    };
 	    return Blog;
