@@ -1,11 +1,13 @@
 
-<article class="blog_post">
-  <h2>{{vm.blog.title}}</h2>
+<article class="blog_post" ng-repeat="gist in gists">
+  <h2>{{gist.description}} / {{gist.owner.url}}</h2>
+  <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
+  <p ng-repeat="file in gist.files">{{file.filename}}</p>
   <div class="blog_info">
-    <ul class="blog-data">
-      <li>By: {{vm.blog.author}}</li>
-      <li>Date: {{vm.blog.date | date:'shortDate'}}</li>
-      <li>Comments: {{vm.blog.comments}}</li>
+    <ul ng-if="gists.length" class="blog-data">
+      <li>By: {{gist.owner.login}}</li>
+      <li>Date: {{gist.created_at | date:'shortDate'}}</li>
+      <li>Comments: {{gist.comments}}</li>
     </ul>
   </div>
   <p class="full-post">{{vm.blog.content}}</p>
