@@ -1,10 +1,9 @@
 <div class="blog-collection">
   <article class="blog_post" ng-repeat="gist in gists|pager:pagination">
-    <h2>{{gist.description}} / {{gist.owner.url}}</h2>
-    <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
-    <p ng-repeat="file in gist.files">{{file.filename | limitTo: 350}}
-    </p>
-
+    <h2>{{gist.description}}</h2>
+    <h4><a href="{{gist.owner.url}}">{{gist.owner.url}}</a></h4>
+    <img src="{{gist.owner.avatar_url}}" alt="pictue of gist author " height="75" width="75">
+    <p ng-repeat="file in gist.files"><a href="#/blogs/{{gist.id}}">{{file.filename | limitTo: 30}}<a></p>
     <div class="blog_info_container">
       <div class="blog_info">
         <ul ng-if="gists.length" class="blog-data">
@@ -19,7 +18,9 @@
       </div>
     </div>
   </article>
-  <button type="button" ng-click="pagination.prevPage()">Prev</button>
-  <button type="button" ng-click="pagination.nextPage()">Next</button>
+  <div class="add-blog_container">
+    <button type="button" ng-click="pagination.prevPage()" class="add-blog">Prev</button>
+    <button type="button" ng-click="pagination.nextPage()" class="add-blog">Next</button>
+  </div>
 </div>
 
