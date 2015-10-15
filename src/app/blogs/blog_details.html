@@ -1,7 +1,7 @@
 
 <article class="blog_post">
   <h2>{{gists.description}}<h2>
-  <h4>{{gists.owner.url}}</h4>
+  <h4><a href="{{gists.owner.url}}">{{gists.owner.url}}</a></h4>
   <img src="{{gists.owner.avatar_url}}" alt="picture of owner" height="75" width="75">
   <p>{{gists.file.filename}}</p>
   <p ng-repeat="file in gists.files"><pre>{{gists.files|json}}<pre></p>

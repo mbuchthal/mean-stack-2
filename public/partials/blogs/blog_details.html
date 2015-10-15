@@ -1,31 +1,17 @@
 
-<<<<<<< HEAD
-<article class="blog_post" ng-repeat="gist in gists">
-  <h2>{{gist.description}} / {{gist.owner.url}}</h2>
-  <img src="{{gist.owner.avatar_url}}" alt="" height="75" width="75">
-  <p ng-repeat="file in gist.files">{{file.filename}}</p>
-  <div class="blog_info">
-    <ul ng-if="gists.length" class="blog-data">
-      <li>By: {{gist.owner.login}}</li>
-      <li>Date: {{gist.created_at | date:'shortDate'}}</li>
-      <li>Comments: {{gist.comments}}</li>
-=======
 <article class="blog_post">
   <h2>{{gists.description}}<h2>
-  <h4>{{gists.owner.url}}</h4>
+  <h4><a href="{{gists.owner.url}}">{{gists.owner.url}}</a></h4>
   <img src="{{gists.owner.avatar_url}}" alt="picture of owner" height="75" width="75">
   <p>{{gists.file.filename}}</p>
-  <p ng-repeat="file in gists.files"><pre>{{gists.files|json:2}}<pre></p>
+  <p ng-repeat="file in gists.files"><pre>{{gists.files|json}}<pre></p>
   <div class="blog_info">
     <ul class="blog-data">
       <li>By: {{gists.owner.login}}</li>
       <li>Date: {{gists.created_at | date:'shortDate'}}</li>
       <li>Comments: {{gists.comments}}</li>
->>>>>>> 70df8c0a1955f8a642c1f1d668a80fab62f0082b
     </ul>
   </div>
-  <!-- <p class="full-post">{{vm.blog.content}}</p> -->
-<!--   <a href="#/blogs/{{vm.blog._id}}/edit" class="edit-button">Edit Blog</a> -->
   <a href="#/blogs" class="back-button">Back</a>
 </article>
 
