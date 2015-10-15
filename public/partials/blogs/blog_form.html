@@ -1,25 +1,17 @@
 
 <form ng-submit="vm.save()" class="blog_form">
-  <legend>Blog Entry</legend>
+  <legend>Create a Gist</legend>
   <fieldset>
-    <label for="title">Title:</label>
-    <input type="text" ng-model="vm.blog.title" name="title" />
+    <label for="filename">Filename:</label>
+    <input type="text" ng-model="vm.blog.filename" name="filename" />
   </fieldset>
   <fieldset>
     <label for="content">Content:</label>
     <textarea type="text" ng-model="vm.blog.content" name="content" rows="5" columns="100"></textarea>
   </fieldset>
   <fieldset>
-    <label for="author">Author:</label>
-    <input type="text" ng-model="vm.blog.author" name="author" />
-  </fieldset>
-  <fieldset>
-    <label for="date">Date:</label>
-    <input type="text" ng-model="vm.blog.date" name="date" placeholder="mm/dd/yyyy"/>
-  </fieldset>
-  <fieldset>
-    <label for="comments">Comments:</label>
-    <input type="text" ng-model="vm.blog.comments" name="comments" />
+    <label for="description">Description:</label>
+    <input type="text" ng-model="vm.blog.description" name="description" />
   </fieldset>
   <button type="submit" name="Submit">Submit</button>
 </form>

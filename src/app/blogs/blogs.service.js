@@ -5,12 +5,12 @@ require("../app.js");
   "use strict";
 
   angular.module("blogapp").service("BlogsService", function ($http, token) {
-    var urlRoot = "/api/blogs";
+    var urlRoot = "https://api.github.com";
 
     var Blog = {
       get: function (id) {
         if (angular.isDefined(id)) {
-          return $http.get("https://api.github.com/gists/" + id, {
+          return $http.get(urlRoot + "/gists/" + id, {
               headers: {
                 "Authorization": "token " + token,
               }
@@ -24,7 +24,11 @@ require("../app.js");
         return $http.put(urlRoot + "/" + model._id, model);
       },
       create: function (model) {
-        return $http.post(urlRoot, model);
+        return $http.post(urlRoot + "/gists", model, {
+          headers: {
+            "Authorization": "token " + token,
+          }
+        });
       },
       delete: function (model) {
         return $http.delete(urlRoot + "/" + model._id);
@@ -33,8 +37,6 @@ require("../app.js");
     return Blog;
   });
 }());
-
-
 
   // $http.get("https://api.github.com/users/toalina/gists", {
   //   headers: {

@@ -7,8 +7,8 @@ require("../app.js");
 angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log) {
 
 initialize();
-function initialize() {
 
+function initialize() {
   BlogsService
     .get($routeParams.gist_id)
     .then(successHandler, errorHandler);
