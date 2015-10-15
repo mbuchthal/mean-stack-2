@@ -1,6 +1,6 @@
 <div class="blog-collection">
-  <p>Search: </p>
-  <input type="text" ng-model="search" name="Search:">
+  <p class="search-label">Find {{search}}</p>
+  <input type="text" class="search-bar"ng-model="search">
   <article class="blog_post" ng-repeat="gist in gists|pager:pagination|filter:search">
     <h2>{{gist.description}}</h2>
     <h4><a href="{{gist.owner.url}}">{{gist.owner.url}}</a></h4>
