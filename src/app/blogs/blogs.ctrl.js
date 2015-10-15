@@ -22,23 +22,26 @@ angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log,
     }
   };
 
-  $http.get("https://api.github.com/users/toalina/gists", {
+  $http.get("https://api.github.com/users/mbuchthal/gists", {
     headers: {
       "Authorization": "token " + token,
     }
   }).then(successHandler, errorHandler);
 
-function successHandler (response) {
-  var data = response.data;
-  data = angular.isArray(data) ? data : [data];  //isArray is an angular method
+  function successHandler (response) {
+    var data = response.data;
+    data = angular.isArray(data) ? data : [data];  //isArray is an angular method
 
-  $scope.gists = response.data;
-  $log.info("response", response);
-};
+    $scope.gists = response.data;
+    $log.info("response", response);
+  };
 
-function errorHandler(response) {
-  $log.error("response", response);
-};
+  function errorHandler(response) {
+    $log.error("response", response);
+  };
+
+  // function deleteG
+
 
 });
 
