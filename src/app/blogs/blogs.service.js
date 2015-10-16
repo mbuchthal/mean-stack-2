@@ -12,7 +12,7 @@ require("../app.js");
         if (angular.isDefined(id)) {
           return $http.get(urlRoot + "/gists/" + id, {
             headers: {
-              "Authorization": "token " + token,
+              Authorization: "token " + token,
             }
           });
         } else {
@@ -21,7 +21,7 @@ require("../app.js");
         }
       },
       update: function (model) {
-        return $http.patch(urlRoot + "/gists/" + model.id, model, {
+        return $http.patch(urlRoot + "/gists/" + model.id, {
           headers: {
             Authorization: "token " + token,
 

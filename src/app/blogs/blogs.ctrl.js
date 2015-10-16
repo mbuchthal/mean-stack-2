@@ -24,7 +24,7 @@ angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log,
 
   $http.get("https://api.github.com/users/mbuchthal/gists", {
     headers: {
-      "Authorization": "token " + token,
+      Authorization: "token " + token,
     }
   }).then(successHandler, errorHandler);
 
