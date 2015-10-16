@@ -24,6 +24,7 @@ require("../app.js");
         return $http.patch(urlRoot + "/gists/" + model.id, model, {
           headers: {
             Authorization: "token " + token,
+
           }
         });
       },
@@ -45,9 +46,3 @@ require("../app.js");
     return Blog;
   });
 }());
-
-  // $http.get("https://api.github.com/users/toalina/gists", {
-  //   headers: {
-  //     "Authorization": "token " + token,
-  //   }
-  // }).then(successHandler, errorHandler);
