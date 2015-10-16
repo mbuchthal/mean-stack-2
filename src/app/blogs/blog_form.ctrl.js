@@ -18,7 +18,6 @@ require("../app.js");
     function initialize() {
       if ($routeParams.blog_id) {
         BlogsService.get($routeParams.blog_id).then(successHandler, setBlog(data, response),errorHandler);
-
       }
     }
 
@@ -36,14 +35,6 @@ require("../app.js");
     function saveForm () {
       var method;
       var x = vm.blog.filename;
-
-      var updateInfo = {
-        id: vm.blog.id,
-        method: "update",
-        successMsg: "Blog Successfully Updated",
-        errorMsg: "Blog Failed to Update",
-        model: {"description": vm.blog.title,"files": { "blog": { "content": vm.blog.content}}}
-      };
 
       var newGist = {
         "description": vm.blog.description,

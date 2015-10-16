@@ -1,0 +1,18 @@
+
+<form ng-submit="vm.patch()" class="blog_form">
+  <legend>Update a Gist</legend>
+  <fieldset>
+    <label for="filename">Filename:</label>
+    <input type="text" ng-model="vm.filename" name="filename" />
+  </fieldset>
+  <fieldset>
+    <label for="content">Content:</label>
+    <textarea type="text" ng-model="gists.files[vm.filename].content" name="content" rows="5" columns="100"></textarea>
+  </fieldset>
+  <fieldset>
+    <label for="description">Description:</label>
+    <input type="text" ng-model="gists.description" name="description" />
+  </fieldset>
+  <button type="submit" name="Submit">Submit</button>
+</form>
+

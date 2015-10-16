@@ -21,7 +21,7 @@ require("../app.js");
         }
       },
       update: function (model) {
-        return $http.patch(urlRoot + "/gists/" + model.id, {
+        return $http.patch(urlRoot + "/gists/" + model.id, model, {
           headers: {
             Authorization: "token " + token,
 

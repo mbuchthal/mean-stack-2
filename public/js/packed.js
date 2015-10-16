@@ -71,9 +71,9 @@
 	      templateUrl: "partials/blogs/blog_form.html",
 	      controller: "BlogFormCtrl as vm",
 	    })
-	    .when("/blogs/:gist_id/edit", {
-	      templateUrl: "partials/blogs/blog_form.html",
-	      controller: "BlogFormCtrl as vm",
+	    .when("/blogs/edit/:gist_id", {
+	      templateUrl: "partials/blogs/blog_edit_form.html",
+	      controller: "BlogCtrl as vm",
 	    })
 	    .when("/blogs/:gist_id", {
 	      templateUrl: "partials/blogs/blog_details.html",
@@ -30032,6 +30032,8 @@
 	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log, $location) {
 	  vm = this;
 	  vm.delete = deleteBlog;
+	  vm.patch = patch;
+	  var updatedGist;
 
 	  initialize();
 
@@ -30044,8 +30046,8 @@
 	  function successHandler (response) {
 	    var data = response.data;
 	    data = angular.isArray(data) ? data : [data];  //isArray is an angular method
-	    console.log(data);
 	    $scope.gists = response.data;
+	    vm.filename = Object.keys($scope.gists.files)[0];
 	    $log.info("response", response);
 	  };
 
@@ -30061,9 +30063,34 @@
 	      $log.error("Could not delete " + resp);
 	    });
 	  }
+
+	  function patch () {
+	    var filename = Object.keys($scope.gists.files)[0];
+	    var updatedGist = {
+	      "id": $scope.gists.id,
+	      "description": $scope.gists.description,
+	      "public": true,
+	      "files": {}
+	    };
+
+	    updatedGist.files[filename] = {
+	        "content": $scope.gists.files[vm.filename].content
+	    };
+
+
+
+	    BlogsService.update(updatedGist).then(function (response) {
+
+	      console.log(updatedGist.id);
+
+	      $location.url('/blogs/' + updatedGist.id);
+	      $log.info("response", response);
+	    }, function (response) {
+	      errorHandler(response);
+	    });
+	  }
+
 	});
-
-
 
 
 /***/ },
@@ -30111,7 +30138,6 @@
 	    function initialize() {
 	      if ($routeParams.blog_id) {
 	        BlogsService.get($routeParams.blog_id).then(successHandler, setBlog(data, response),errorHandler);
-
 	      }
 	    }
 
@@ -30129,14 +30155,6 @@
 	    function saveForm () {
 	      var method;
 	      var x = vm.blog.filename;
-
-	      var updateInfo = {
-	        id: vm.blog.id,
-	        method: "update",
-	        successMsg: "Blog Successfully Updated",
-	        errorMsg: "Blog Failed to Update",
-	        model: {"description": vm.blog.title,"files": { "blog": { "content": vm.blog.content}}}
-	      };
 
 	      var newGist = {
 	        "description": vm.blog.description,
@@ -30288,7 +30306,7 @@
 	        }
 	      },
 	      update: function (model) {
-	        return $http.patch(urlRoot + "/gists/" + model.id, {
+	        return $http.patch(urlRoot + "/gists/" + model.id, model, {
 	          headers: {
 	            Authorization: "token " + token,
 
