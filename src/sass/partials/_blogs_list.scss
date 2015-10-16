@@ -8,6 +8,7 @@
 }
 
 .blog_info_links {
+  @include flexbox;
   float: right;
   button {
     margin: 0 auto;

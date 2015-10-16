@@ -11,9 +11,9 @@ require("../app.js");
       get: function (id) {
         if (angular.isDefined(id)) {
           return $http.get(urlRoot + "/gists/" + id, {
-              headers: {
-                "Authorization": "token " + token,
-              }
+            headers: {
+              "Authorization": "token " + token,
+            }
           });
         } else {
           // return $http.get(urlRoot);
@@ -21,21 +21,22 @@ require("../app.js");
         }
       },
       update: function (model) {
-        return $http.patch(urlRoot + "/gists" + model.id, model, {
+        return $http.patch(urlRoot + "/gists/" + model.id, model, {
           headers: {
-            "Authorization": "token " + token,
+            Authorization: "token " + token,
+
           }
         });
       },
       create: function (model) {
         return $http.post(urlRoot + "/gists", model, {
           headers: {
-            "Authorization": "token " + token,
+            Authorization: "token " + token,
           }
         });
       },
       delete: function (model) {
-        return $http.delete(urlRoot + "/gists/" + model._id,  {
+        return $http.delete(urlRoot + "/gists/" + model.id, {
           headers: {
             Authorization: "token " + token,
           }
@@ -45,9 +46,3 @@ require("../app.js");
     return Blog;
   });
 }());
-
-  // $http.get("https://api.github.com/users/toalina/gists", {
-  //   headers: {
-  //     "Authorization": "token " + token,
-  //   }
-  // }).then(successHandler, errorHandler);

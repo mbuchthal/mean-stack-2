@@ -71,7 +71,7 @@
 	      templateUrl: "partials/blogs/blog_form.html",
 	      controller: "BlogFormCtrl as vm",
 	    })
-	    .when("/blogs/:blog_id/edit", {
+	    .when("/blogs/:gist_id/edit", {
 	      templateUrl: "partials/blogs/blog_form.html",
 	      controller: "BlogFormCtrl as vm",
 	    })
@@ -30029,7 +30029,9 @@
 	
 	__webpack_require__(1);
 
-	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log) {
+	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log, $location) {
+	  vm = this;
+	  vm.delete = deleteBlog;
 
 	  initialize();
 
@@ -30051,7 +30053,17 @@
 	    $log.error("response", response);
 	  };
 
+	  function deleteBlog (gist) {
+	    BlogsService.delete(gist).then(function (resp) {
+	      $location.url("/blogs");
+	      $log.info("deleted", resp);
+	    }, function (resp) {
+	      $log.error("Could not delete " + resp);
+	    });
+	  }
 	});
+
+
 
 
 /***/ },
@@ -30096,7 +30108,6 @@
 	      content: ""
 	    };
 
-
 	    function saveForm () {
 	      var method;
 	      var x = vm.blog.filename;
@@ -30122,6 +30133,7 @@
 	      method = $routeParams.blog_id ? "update" : "create";
 
 	      BlogsService[method](newGist).then(function (resp) {
+
 	        $http.post("https://api.github.com/gists", newGist, {
 	          headers: {
 	            Authorization: "token " + token
@@ -30192,9 +30204,6 @@
 	    $log.error("response", response);
 	  };
 
-	  // function deleteG
-
-
 	});
 
 
@@ -30254,9 +30263,9 @@
 	      get: function (id) {
 	        if (angular.isDefined(id)) {
 	          return $http.get(urlRoot + "/gists/" + id, {
-	              headers: {
-	                "Authorization": "token " + token,
-	              }
+	            headers: {
+	              "Authorization": "token " + token,
+	            }
 	          });
 	        } else {
 	          // return $http.get(urlRoot);
@@ -30264,21 +30273,27 @@
 	        }
 	      },
 	      update: function (model) {
+<<<<<<< HEAD
+	        return $http.patch(urlRoot + "/gists/" + model.id, model, {
+	          headers: {
+	            Authorization: "token " + token,
+=======
 	        return $http.patch(urlRoot + "/gists" + model.id, model, {
 	          headers: {
 	            "Authorization": "token " + token,
+>>>>>>> master
 	          }
 	        });
 	      },
 	      create: function (model) {
 	        return $http.post(urlRoot + "/gists", model, {
 	          headers: {
-	            "Authorization": "token " + token,
+	            Authorization: "token " + token,
 	          }
 	        });
 	      },
 	      delete: function (model) {
-	        return $http.delete(urlRoot + "/gists/" + model._id,  {
+	        return $http.delete(urlRoot + "/gists/" + model.id, {
 	          headers: {
 	            Authorization: "token " + token,
 	          }
