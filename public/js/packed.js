@@ -30100,6 +30100,15 @@
 	    function saveForm () {
 	      var method;
 	      var x = vm.blog.filename;
+	      
+	      var updateInfo = {
+	        id: vm.blog.id,
+	        method: "update",
+	        successMsg: "Blog Successfully Updated",
+	        errorMsg: "Blog Failed to Update",
+	        model: {"description": vm.blog.title,"files": { "blog": { "content": vm.blog.content}}}
+	      };
+
 	      var newGist = {
 	        "description": vm.blog.description,
 	        "public": true,
@@ -30255,7 +30264,11 @@
 	        }
 	      },
 	      update: function (model) {
-	        return $http.put(urlRoot + "/" + model._id, model);
+	        return $http.patch(urlRoot + "/gists" + model.id, model, {
+	          headers: {
+	            "Authorization": "token " + token,
+	          }
+	        });
 	      },
 	      create: function (model) {
 	        return $http.post(urlRoot + "/gists", model, {
