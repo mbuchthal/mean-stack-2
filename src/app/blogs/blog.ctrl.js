@@ -1,7 +1,9 @@
 
 require("../app.js");
 
-angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log) {
+angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log, $location) {
+  vm = this;
+  vm.delete = deleteBlog;
 
   initialize();
 
@@ -23,4 +25,14 @@ angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeP
     $log.error("response", response);
   };
 
+  function deleteBlog (gist) {
+    BlogsService.delete(gist).then(function (resp) {
+      $location.url("/blogs");
+      $log.info("deleted", resp);
+    }, function (resp) {
+      $log.error("Could not delete " + resp);
+    });
+  }
 });
+
+

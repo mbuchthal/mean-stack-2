@@ -12,6 +12,10 @@
       <li>Comments: {{gists.comments}}</li>
     </ul>
   </div>
-  <a href="#/blogs" class="back-button">Back</a>
+  <div class="blog_info_links">
+    <a href="#/blogs" class="back-button">Back</a>
+    <a href="#/blogs/:gist_id/edit" class="back-button">Edit</a>
+    <button ng-click="vm.delete(gists)" class="delete_blog">Delete</button>
+  </div>
 </article>
 

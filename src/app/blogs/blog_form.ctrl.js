@@ -15,7 +15,6 @@ require("../app.js");
       content: ""
     };
 
-
     function saveForm () {
       var method;
       var x = vm.blog.filename;
@@ -32,6 +31,7 @@ require("../app.js");
       method = $routeParams.blog_id ? "update" : "create";
 
       BlogsService[method](newGist).then(function (resp) {
+
         $http.post("https://api.github.com/gists", newGist, {
           headers: {
             Authorization: "token " + token

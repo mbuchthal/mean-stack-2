@@ -40,9 +40,6 @@ angular.module("blogapp").controller("BlogsCtrl", function ($scope, $http, $log,
     $log.error("response", response);
   };
 
-  // function deleteG
-
-
 });
 
 
