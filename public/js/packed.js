@@ -71,9 +71,9 @@
 	      templateUrl: "partials/blogs/blog_form.html",
 	      controller: "BlogFormCtrl as vm",
 	    })
-	    .when("/blogs/:gist_id/edit", {
-	      templateUrl: "partials/blogs/blog_form.html",
-	      controller: "BlogFormCtrl as vm",
+	    .when("/blogs/edit/:gist_id", {
+	      templateUrl: "partials/blogs/blog_edit_form.html",
+	      controller: "BlogCtrl as vm",
 	    })
 	    .when("/blogs/:gist_id", {
 	      templateUrl: "partials/blogs/blog_details.html",
@@ -30032,6 +30032,7 @@
 	angular.module("blogapp").controller("BlogCtrl", function (BlogsService, $routeParams, $scope, $http, $log, $location) {
 	  vm = this;
 	  vm.delete = deleteBlog;
+	  if (!(vm.filename)) vm.filename;
 
 	  initialize();
 
@@ -30044,9 +30045,14 @@
 	  function successHandler (response) {
 	    var data = response.data;
 	    data = angular.isArray(data) ? data : [data];  //isArray is an angular method
-	    console.log(data);
+	    //console.log(data);
 	    $scope.gists = response.data;
+	    // $scope.filename = Object.keys($scope.gists.files)[0];
+	    vm.filename = Object.keys($scope.gists.files)[0];
+
 	    $log.info("response", response);
+	    console.log(Object.keys($scope.gists.files)[0]);
+	    console.log($scope.gists.files[vm.filename].content);
 	  };
 
 	  function errorHandler(response) {
@@ -30111,7 +30117,6 @@
 	    function initialize() {
 	      if ($routeParams.blog_id) {
 	        BlogsService.get($routeParams.blog_id).then(successHandler, setBlog(data, response),errorHandler);
-
 	      }
 	    }
 
@@ -30291,7 +30296,6 @@
 	        return $http.patch(urlRoot + "/gists/" + model.id, {
 	          headers: {
 	            Authorization: "token " + token,
-
 	          }
 	        });
 	      },

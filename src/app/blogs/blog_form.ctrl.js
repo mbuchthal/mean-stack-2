@@ -18,7 +18,6 @@ require("../app.js");
     function initialize() {
       if ($routeParams.blog_id) {
         BlogsService.get($routeParams.blog_id).then(successHandler, setBlog(data, response),errorHandler);
-
       }
     }
 

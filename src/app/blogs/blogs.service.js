@@ -24,7 +24,6 @@ require("../app.js");
         return $http.patch(urlRoot + "/gists/" + model.id, {
           headers: {
             Authorization: "token " + token,
-
           }
         });
       },
