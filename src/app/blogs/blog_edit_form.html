@@ -1,5 +1,5 @@
-<h1>{{vm.filename}}</h1>
-<form ng-submit="vm.save()" class="blog_form">
+
+<form ng-submit="vm.patch()" class="blog_form">
   <legend>Update a Gist</legend>
   <fieldset>
     <label for="filename">Filename:</label>
@@ -7,7 +7,7 @@
   </fieldset>
   <fieldset>
     <label for="content">Content:</label>
-    <textarea type="text" ng-model="$scope.gists.files[vm.filename].content" name="content" rows="5" columns="100"></textarea>
+    <textarea type="text" ng-model="gists.files[vm.filename].content" name="content" rows="5" columns="100"></textarea>
   </fieldset>
   <fieldset>
     <label for="description">Description:</label>
